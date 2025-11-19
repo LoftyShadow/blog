@@ -57,7 +57,7 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      * @return json string
      */
-    public static <T> String obj2json(T entity) {
+    public static <T> String objToJson(T entity) {
         if (entity == null) {
             return null;
         }
@@ -72,12 +72,12 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      * @return json string
      */
-    public static <T> String obj2json(T entity, boolean pretty) {
+    public static <T> String objToJson(T entity, boolean pretty) {
         if (entity == null) {
             return null;
         }
         if (!pretty) {
-            return obj2json(entity);
+            return objToJson(entity);
         }
         return execute(
                 () -> MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(entity),
@@ -91,7 +91,7 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      * @return json string
      */
-    public static <T> byte[] obj2jsonBytes(T entity) {
+    public static <T> byte[] objToJsonBytes(T entity) {
         return execute(() -> MAPPER.writeValueAsBytes(entity), "将实体对象转换为字节数组失败, Object:" + entity);
     }
 
@@ -102,7 +102,7 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      * @return JsonNode
      */
-    public static <T> JsonNode obj2node(T entity) {
+    public static <T> JsonNode objToNode(T entity) {
         return MAPPER.valueToTree(entity);
     }
 
@@ -114,21 +114,21 @@ public abstract class JsonUtils {
      * @param <T>      泛型
      * @return 写入成功：true，否则：false
      */
-    public static <T> boolean write2jsonFile(String filepath, T entity) {
+    public static <T> boolean writeToJsonFile(String filepath, T entity) {
         File file = new File(filepath);
         if (!file.exists()) {
             try {
                 boolean success = file.createNewFile();
                 if (!success) {
-                    LOG.error("[write2jsonFile]-创建文件失败！路径：{}", filepath);
+                    LOG.error("[writeToJsonFile]-创建文件失败！路径：{}", filepath);
                     return false;
                 }
             } catch (IOException e) {
-                LOG.error("[write2jsonFile]-创建文件失败！路径：{}，失败原因：{}", filepath, e.getMessage());
+                LOG.error("[writeToJsonFile]-创建文件失败！路径：{}，失败原因：{}", filepath, e.getMessage());
                 return false;
             }
         }
-        return write2jsonFile(new File(filepath), entity);
+        return writeToJsonFile(new File(filepath), entity);
     }
 
     /**
@@ -139,12 +139,12 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      * @return 写入成功：true，否则：false
      */
-    public static <T> boolean write2jsonFile(File file, T entity) {
+    public static <T> boolean writeToJsonFile(File file, T entity) {
         try {
             MAPPER.writeValue(file, entity);
             return true;
         } catch (IOException e) {
-            LOG.error("[write2jsonFile]-写入文件失败！路径：{}，失败原因：{}", file.getAbsolutePath(), e.getMessage());
+            LOG.error("[writeToJsonFile]-写入文件失败！路径：{}，失败原因：{}", file.getAbsolutePath(), e.getMessage());
         }
         return false;
     }
@@ -157,7 +157,7 @@ public abstract class JsonUtils {
      * @param <T>  泛型
      * @return 转换成功后的对象
      */
-    public static <T> T json2obj(String json, Class<T> type) {
+    public static <T> T jsonToObj(String json, Class<T> type) {
         return execute(() -> MAPPER.readValue(json, type), "将json字符串转换为实体类对象失败,json: " + json);
     }
 
@@ -168,7 +168,7 @@ public abstract class JsonUtils {
      * @return Map
      */
     @SuppressWarnings("unchecked")
-    public static Map<String, Object> json2map(String json) {
+    public static Map<String, Object> jsonToMap(String json) {
         return execute(() -> (Map<String, Object>) MAPPER.readValue(json, Map.class), "将json字符串转换为map失败，json：" + json);
     }
 
@@ -178,7 +178,7 @@ public abstract class JsonUtils {
      * @param json json字符串
      * @return Map
      */
-    public static <K, V> Map<K, V> json2map(String json, Class<K> keyType, Class<V> valueType) {
+    public static <K, V> Map<K, V> jsonTomap(String json, Class<K> keyType, Class<V> valueType) {
         JavaType mapLikeType = MAPPER.getTypeFactory().constructMapLikeType(Map.class, keyType, valueType);
         return execute(() -> MAPPER.readValue(json, mapLikeType), "将json字符串转换为map失败，json：" + json);
     }
@@ -219,7 +219,7 @@ public abstract class JsonUtils {
      * @param <T>  泛型
      * @return 实体对象
      */
-    public static <T> T map2obj(Map<?, ?> map, Class<T> type) {
+    public static <T> T mapToObj(Map<?, ?> map, Class<T> type) {
         return MAPPER.convertValue(map, type);
     }
 
@@ -232,7 +232,7 @@ public abstract class JsonUtils {
      * @return 实体类对象
      * @throws IOException IOException
      */
-    public static <T> T file2obj(File file, Class<T> type) throws IOException {
+    public static <T> T fileToObj(File file, Class<T> type) throws IOException {
         return MAPPER.readValue(file, type);
     }
 
@@ -245,7 +245,7 @@ public abstract class JsonUtils {
      * @return 实体类对象
      * @throws IOException IOException
      */
-    public static <T> T urlResource2obj(URL url, Class<T> type) throws IOException {
+    public static <T> T urlResourceToObj(URL url, Class<T> type) throws IOException {
         return MAPPER.readValue(url, type);
     }
 
@@ -257,7 +257,7 @@ public abstract class JsonUtils {
      * @param <T>  泛型
      * @return list集合
      */
-    public static <T> List<T> json2list(String json, Class<T> type) {
+    public static <T> List<T> jsonTolist(String json, Class<T> type) {
         CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(List.class, type);
         return execute(() -> MAPPER.readValue(json, collectionType), "将json字符串转换为实体类List失败，json：" + json);
     }
@@ -268,7 +268,7 @@ public abstract class JsonUtils {
      * @param json json字符串
      * @return JsonNode对象
      */
-    public static JsonNode json2Node(String json) {
+    public static JsonNode jsonToNode(String json) {
         return execute(() -> MAPPER.readTree(json), "将json字符串转换为JsonNode对象失败，json：" + json);
     }
 
@@ -298,7 +298,7 @@ public abstract class JsonUtils {
      * @param <T>    泛型
      */
     public static <T> void printJson(T obj, boolean pretty) {
-        System.out.println(obj2json(obj, pretty));
+        System.out.println(objToJson(obj, pretty));
     }
 }
 ```
