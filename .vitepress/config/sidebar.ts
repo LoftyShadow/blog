@@ -365,6 +365,10 @@ export const sidebar: Sidebar = {
                     text: "Spring常用注解",
                     link: "/java/Spring/Spring常用注解.md",
                 },
+                {
+                    text: "Spring的拦截器和Servlet的过滤器适合场景",
+                    link: "/java/Spring/Spring的拦截器和Servlet的过滤器适合场景.md",
+                },
             ],
         },
         // {

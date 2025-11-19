@@ -360,6 +360,9 @@ let g:WhichKeyDesc_ActivateTerminalToolWindow = "<leader>tt 打开终端并进�
 "翻译选中文字
 map <leader>ts <Action>(Translation.EditorTranslateAction)
 let g:WhichKeyDesc_Translate = "<leader>ts 翻译选中文字"
+"翻译并替换选中文字
+map<leader>tr <Action>(Translation.ReplaceWithTranslationAction)
+let g:WhichKeyDesc_ReplaceWithTranslationAction = "<leader>tr 翻译并替换选中文字"
 
 "==========================<leader>w=============================
 let g:WhichKeyDesc_Window = "<leader>w Window相关"
