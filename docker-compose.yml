@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vitepress-blog
+    ports:
+      - "8089:80"
+    restart: unless-stopped
+    networks:
+      - blog-network
+
+networks:
+  blog-network:
+    driver: bridge
