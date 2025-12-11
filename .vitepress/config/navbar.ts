@@ -17,6 +17,11 @@ export const nav: NavItem[] = [
     link: "/java/java/常用的JVM参数和命令.md",
   },
   {
+    text: "CI/CD",
+    activeMatch: "^/cicd/",
+    link: "/cicd/Jenkins部署项目.md",
+  },
+  {
     text: "算法整理",
     activeMatch: "^/leetcode/",
     link: "/leetcode/menu.md",

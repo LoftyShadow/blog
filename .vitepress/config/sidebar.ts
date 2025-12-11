@@ -382,6 +382,12 @@ export const sidebar: Sidebar = {
         //     ]
         // }
     ],
+    "/cicd/": [
+        {
+            text: "Jenkins部署项目",
+            link: "/cicd/Jenkins部署项目.md",
+        },
+    ],
     "/utils/": [
         {
             text: "Utils工具类",
