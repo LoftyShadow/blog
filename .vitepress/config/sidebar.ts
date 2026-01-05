@@ -180,6 +180,10 @@ export const sidebar: Sidebar = {
             link: "/article/Github使用ssh连接.md",
         },
         {
+            text: "Git Worktree使用指南",
+            link: "/article/Git Worktree使用指南.md",
+        },
+        {
             text: "xxl-job整理",
             link: "/article/xxl-job整理.md",
         },
