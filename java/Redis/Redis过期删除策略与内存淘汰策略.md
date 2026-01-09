@@ -1,7 +1,7 @@
 # Redis的数据过期清除策略
 
 设计过期时间
-```redis
+```bash
 -- 设置键值对的时候，同时指定过期时间（精确到秒）
 set <key> <value> ex <n>
 -- 设置键值对的时候，同时指定过期时间（精确到毫秒）
@@ -60,7 +60,7 @@ Redis服务器会每隔一段时间（由hz配置项决定）主动进行过期�
 
 hz配置项的默认值是10，即每秒执行10次基于时间的事件。这意味着Redis服务器会每100毫秒进行一次定期删除操作，清理过期键，并在需要时关闭闲置的客户端连接。
 
-```redis
+```bash
 config set hz 200
 ```
 
@@ -70,7 +70,7 @@ config set hz 200
 要修改`maxmemory-samples`的值，可以在redis.conf文件中找到相应的配置项，并将其设置为所需的值。然后，重新启动Redis服务器使配置生效。  
 需要注意的是，增加`maxmemory-samples`的值可能会增加Redis服务器的处理开销，因为每次清理过期键任务都需要检查更多的键。因此，应根据服务器的性能和负载情况来适当调整`maxmemory-samples`的值。  
 另外，还可以通过调用CONFIG SET命令动态地修改`maxmemory-samples`的值，而不需要重启Redis服务器。例如，可以使用以下命令将`maxmemory-samples`的值设置为10：
-```redis
+```bash
 CONFIG SET maxmemory-samples 10
 ```
 总之，通过修改Redis的`maxmemory-samples`配置项，可以设置一次检查多少个过期键。根据服务器的性能和负载情况，可以适当调整这个值。
@@ -101,7 +101,7 @@ Redis 提供了多种淘汰策略，你可以在 `redis.conf` 文件中通过 `m
 *   `noeviction`: **(默认策略)** 当内存达到上限时，不删除任何键。此时，所有会导致内存增加的写命令（如 `SET`, `LPUSH` 等）都会返回错误，但读命令（如 `GET`）仍然可以正常执行。这种策略适用于数据不能被丢失的场景。
 
 设置Redis最大内存  
-```redis
+```bash
 CONFIG SET maxmemory 4gb
 ```
 Redis提供了8种缓存淘汰策略，如下图所示：
@@ -124,7 +124,7 @@ Redis提供了8种缓存淘汰策略，如下图所示：
 如果业务应用中的数据访问频率相差不大，没有明显的冷热数据区分，建议使用 **allkeys-random** 策略，随机选择淘汰的数据就行。
 如果没有设置过期时间的键值对，那么 **volatile-lru**，**volatile-lfu**，**volatile-random** 和 **volatile-ttl** 策略的行为, 和 **noeviction** 基本上一致。
 如何设置策略
-```redis
+```bash
 -- 查看目前的策略
 config get  maxmemory-policy
 -- 根据自身的实际情况 选择一种策略进行设置

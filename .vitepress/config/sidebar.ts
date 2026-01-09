@@ -113,6 +113,10 @@ export const sidebar: Sidebar = {
             text: "Docker制作镜像Dockerfile编写",
             link: "/docker/Docker制作镜像Dockerfile编写.md",
         },
+        {
+            text: "Docker日志查看技巧",
+            link: "/docker/Docker日志查看技巧.md",
+        },
     ],
     "/idea/": [
         {
@@ -372,6 +376,10 @@ export const sidebar: Sidebar = {
                 {
                     text: "Spring的拦截器和Servlet的过滤器适合场景",
                     link: "/java/Spring/Spring的拦截器和Servlet的过滤器适合场景.md",
+                },
+                {
+                    text: "Spring的@Cacheable原理",
+                    link: "/java/Spring/Spring的@Cacheable原理.md",
                 },
             ],
         },

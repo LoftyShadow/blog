@@ -32,7 +32,7 @@ FROM table
 语法: POSITION(substr IN str)
 返回字符串str中第一次出现子字符串substr的位置
 
-```mysql
+```sql
 SELECT POSITION('a' IN 'nanana'); # 2
 
 SELECT *
@@ -47,7 +47,7 @@ WHERE POSITION('a' IN field);
 如果substr或str为NULL，则返回NULL。  
 POSITION（substr IN str）是LOCATE（substr，str）的同义词。
 
-```mysql
+```sql
 SELECT LOCATE('a', 'nanana'); # 2
 SELECT LOCATE('a', 'nanana', 3); # 4
 SELECT LOCATE('b', 'nanana'); # 0
@@ -65,7 +65,7 @@ WHERE LOCATE('a', field);
 返回字符串str中第一次出现子字符串substr的位置。
 INSTR()与LOCATE（）的双参数形式相同，只是参数的顺序相反。
 
-```mysql
+```sql
 SELECT INSTR('nanana', 'a'); # 2
 SELECT INSTR('nanana', 'e'); # 0
 

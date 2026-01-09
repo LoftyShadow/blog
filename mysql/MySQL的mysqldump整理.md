@@ -165,7 +165,7 @@ mysqldump -u root -p --routines --single-transaction mydb > mydb_with_routines.s
 
 2.  **设置 Cron Job**：
     运行 `crontab -e` 并添加一行，表示每天凌晨 3 点执行备份。
-    ```crontab
+    ```txt
     0 3 * * * /bin/bash /home/user/backup.sh
     ```
 
