@@ -164,6 +164,10 @@ export const sidebar: Sidebar = {
             link: "/article/jq常用命令.md",
         },
         {
+            text: "Rclone使用指南",
+            link: "/article/Rclone使用指南.md",
+        },
+        {
             text: "Zsh安装",
             link: "/article/Zsh安装.md",
         },
