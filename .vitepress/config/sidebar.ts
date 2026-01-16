@@ -66,6 +66,10 @@ export const sidebar: Sidebar = {
             link: "/docker/安装Docker-compose.md",
         },
         {
+            text: "DockerCompose配置项详解",
+            link: "/docker/DockerCompose配置项详解.md",
+        },
+        {
             text: "Docker安装Mysql.md",
             link: "/docker/Docker安装Mysql.md",
         },
@@ -162,6 +166,10 @@ export const sidebar: Sidebar = {
         {
             text: "jq常用命令",
             link: "/article/jq常用命令.md",
+        },
+        {
+            text: "Scoop使用指南",
+            link: "/article/Scoop使用指南.md",
         },
         {
             text: "Rclone使用指南",
