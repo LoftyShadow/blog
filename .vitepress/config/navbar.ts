@@ -6,11 +6,11 @@ export const nav: NavItem[] = [
     text: "主页",
     link: "/",
   },
-  // {
-  //   text: "Python整理",
-  //   activeMatch: "^/python/",
-  //   link: "/python/open函数.md",
-  // },
+  {
+    text: "Python整理",
+    activeMatch: "^/python/",
+    link: "/python/FastAPI快速入门.md",
+  },
   {
     text: "Java整理",
     activeMatch: "^/java/",

@@ -2,6 +2,36 @@
 import {Sidebar} from "vitepress/types/default-theme";
 
 export const sidebar: Sidebar = {
+    "/python/": [
+        {
+            text: "FastAPI快速入门",
+            link: "/python/FastAPI快速入门.md",
+        },
+        {
+            text: "NumPy快速入门",
+            link: "/python/NumPy快速入门.md",
+        },
+        {
+            text: "Pandas快速入门",
+            link: "/python/Pandas快速入门.md",
+        },
+        {
+            text: "Matplotlib快速入门",
+            link: "/python/Matplotlib快速入门.md",
+        },
+        {
+            text: "Python高级特性-列表推导式装饰器生成器",
+            link: "/python/Python高级特性-列表推导式装饰器生成器.md",
+        },
+        {
+            text: "open函数",
+            link: "/python/open函数.md",
+        },
+        {
+            text: "uv使用方法",
+            link: "/python/uv使用方法.md",
+        },
+    ],
     "/mysql/": [
         {
             text: "MySQL的MVCC",
@@ -120,6 +150,14 @@ export const sidebar: Sidebar = {
         {
             text: "Docker日志查看技巧",
             link: "/docker/Docker日志查看技巧.md",
+        },
+        {
+            text: "Kubernetes快速入门",
+            link: "/docker/Kubernetes快速入门.md",
+        },
+        {
+            text: "Kubernetes中Pod、Node和Service的区别",
+            link: "/docker/Kubernetes中Pod、Node和Service的区别.md",
         },
     ],
     "/idea/": [

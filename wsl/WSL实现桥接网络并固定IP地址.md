@@ -1,3 +1,13 @@
+## 新版可直接通过
+```bash
+notepad $USERPROFILE/.wslconfig
+
+[wsl2]
+networkingMode=mirrored
+
+实现桥接
+```
+
 ## 安装Hyper-V管理器
 如果是专业版Windows操作系统，可以直接在
 “控制面板->程序和功能->启用或关闭Windows功能”
