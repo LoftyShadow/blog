@@ -277,43 +277,43 @@ export const sidebar: Sidebar = {
             items: [
                 {
                     text: "常用的JVM参数和命令",
-                    link: "/java/java/常用的JVM参数和命令.md",
+                    link: "/java/Java/常用的JVM参数和命令.md",
                 },
                 {
                     text: "Java阻塞队列整理",
-                    link: "/java/java/Java阻塞队列整理.md",
+                    link: "/java/Java/Java阻塞队列整理.md",
                 },
                 {
                     text: "ConcurrentHashMap设计",
-                    link: "/java/java/ConcurrentHashMap设计.md",
+                    link: "/java/Java/ConcurrentHashMap设计.md",
                 },
                 {
                     text: "垃圾回收算法整理",
-                    link: "/java/java/垃圾回收算法整理.md",
+                    link: "/java/Java/垃圾回收算法整理.md",
                 },
                 {
                     text: "经典垃圾收集器",
-                    link: "/java/java/经典垃圾收集器.md",
+                    link: "/java/Java/经典垃圾收集器.md",
                 },
                 {
                     text: "OSI七层协议",
-                    link: "/java/java/OSI七层协议.md",
+                    link: "/java/Java/OSI七层协议.md",
                 },
                 {
                     text: "三次握手和四次挥手",
-                    link: "/java/java/三次握手和四次挥手.md",
+                    link: "/java/Java/三次握手和四次挥手.md",
                 },
                 {
                     text: "JVM类加载器和类加载过程",
-                    link: "/java/java/JVM类加载器和类加载过程.md",
+                    link: "/java/Java/JVM类加载器和类加载过程.md",
                 },
                 {
                     text: "订单超时自动取消方案",
-                    link: "/java/java/订单超时自动取消方案.md",
+                    link: "/java/Java/订单超时自动取消方案.md",
                 },
                 {
                     text: "AQS整理",
-                    link: "/java/java/AQS整理.md",
+                    link: "/java/Java/AQS整理.md",
                 },
             ],
         },
@@ -448,6 +448,28 @@ export const sidebar: Sidebar = {
         {
             text: "Jenkins部署项目",
             link: "/cicd/Jenkins部署项目.md",
+        },
+    ],
+    "/linux/": [
+        {
+            text: "Tmux快速入门",
+            link: "/linux/Tmux快速入门.md",
+        },
+        {
+            text: "Alacritty快速入门",
+            link: "/linux/Alacritty快速入门.md",
+        },
+        {
+            text: "Wine兼容Windows应用指南",
+            link: "/linux/Wine兼容Windows应用指南.md",
+        },
+        {
+            text: "Linux环境变量配置",
+            link: "/linux/Linux环境变量配置.md",
+        },
+        {
+            text: "rsync整理",
+            link: "/linux/rsync整理.md",
         },
     ],
     "/utils/": [

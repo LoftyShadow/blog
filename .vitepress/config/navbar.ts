@@ -22,6 +22,11 @@ export const nav: NavItem[] = [
     link: "/cicd/Jenkins部署项目.md",
   },
   {
+    text: "Linux整理",
+    activeMatch: "^/linux/",
+    link: "/linux/Tmux快速入门.md",
+  },
+  {
     text: "算法整理",
     activeMatch: "^/leetcode/",
     link: "/leetcode/menu.md",
