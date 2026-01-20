@@ -214,6 +214,10 @@ export const sidebar: Sidebar = {
             link: "/article/Rclone使用指南.md",
         },
         {
+            text: "SSHFS使用指南",
+            link: "/article/SSHFS使用指南.md",
+        },
+        {
             text: "Zsh安装",
             link: "/article/Zsh安装.md",
         },
@@ -470,6 +474,14 @@ export const sidebar: Sidebar = {
         {
             text: "rsync整理",
             link: "/linux/rsync整理.md",
+        },
+        {
+            text: "sed、awk、grep三剑客",
+            link: "/linux/sed、awk、grep三剑客.md",
+        },
+        {
+            text: "Envoy Gateway快速入门",
+            link: "/linux/Envoy Gateway快速入门.md",
         },
     ],
     "/utils/": [
