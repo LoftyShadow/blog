@@ -14,7 +14,7 @@ export const nav: NavItem[] = [
   {
     text: "Java整理",
     activeMatch: "^/java/",
-    link: "/java/java/常用的JVM参数和命令.md",
+    link: "/java/Java/常用的JVM参数和命令.md",
   },
   {
     text: "CI/CD",
@@ -27,10 +27,15 @@ export const nav: NavItem[] = [
     link: "/linux/Tmux快速入门.md",
   },
   {
-    text: "算法整理",
-    activeMatch: "^/leetcode/",
-    link: "/leetcode/menu.md",
+    text: "AI整理",
+    activeMatch: "^/ai/",
+    link: "/ai/claude/Claude配置.md",
   },
+  // {
+  //   text: "算法整理",
+  //   activeMatch: "^/leetcode/",
+  //   link: "/leetcode/menu.md",
+  // },
   {
     text: "书籍整理",
     activeMatch: "^/books/",
