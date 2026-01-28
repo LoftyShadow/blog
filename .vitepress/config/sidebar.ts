@@ -472,6 +472,10 @@ export const sidebar: Sidebar = {
             link: "/linux/Linux环境变量配置.md",
         },
         {
+            text: "Chezmoi使用指南",
+            link: "/linux/Chezmoi使用指南.md",
+        },
+        {
             text: "rsync整理",
             link: "/linux/rsync整理.md",
         },
