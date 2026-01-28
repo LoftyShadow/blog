@@ -488,6 +488,32 @@ export const sidebar: Sidebar = {
             link: "/linux/Envoy Gateway快速入门.md",
         },
     ],
+    "/ai/": [
+        {
+            text: "Claude",
+            collapsed: false,
+            items: [
+                {
+                    text: "Claude配置",
+                    link: "/ai/claude/Claude配置.md",
+                },
+                {
+                    text: "Claude规则Rule",
+                    link: "/ai/claude/Claude规则Rule.md",
+                },
+            ],
+        },
+        {
+            text: "Common",
+            collapsed: false,
+            items: [
+                {
+                    text: "默认Prompt",
+                    link: "/ai/common/默认Prompt.md",
+                },
+            ],
+        },
+    ],
     "/utils/": [
         {
             text: "Utils工具类",

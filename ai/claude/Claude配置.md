@@ -1,3 +1,81 @@
+<details>
+
+<summary>MCP整理</summary>
+
+```json
+{
+  "mcpServers": {
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {}
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {}
+    },
+    "sequential-thinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {}
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem"
+      ],
+      "env": {}
+    },
+    "postgres": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://postgres:123456@localhost:5432/test"
+      ],
+      "env": {}
+    },
+    "java-decompiler": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@idachev/mcp-javadc"
+      ],
+      "env": {}
+    },
+    "brave-search": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@brave/brave-search-mcp-server"
+      ],
+      "env": {
+        "BRAVE_API_KEY": ""
+      }
+    }
+  }
+}
+```
+
+</details>
 
 <details>
 
@@ -47,8 +125,10 @@
   "permissions": {
     "allow": [
       "mcp__context7",
-      "mcp__javadc",
+      "mcp__java-decompiler",
       "mcp__sequential-thinking__sequentialthinking",
+      "mcp__memory",
+      "mcp__fetch",
       "mcp__ide__getDiagnostics",
       "Read",
       "WebSearch",
@@ -68,6 +148,7 @@
   }
 }
 ```
+
 </details>
 
 <details>
@@ -118,8 +199,10 @@
   "permissions": {
     "allow": [
       "mcp__context7",
-      "mcp__javadc",
+      "mcp__java-decompiler",
       "mcp__sequential-thinking__sequentialthinking",
+      "mcp__memory",
+      "mcp__fetch",
       "mcp__ide__getDiagnostics",
       "Read",
       "WebSearch",
