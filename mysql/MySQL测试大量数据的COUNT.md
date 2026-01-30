@@ -1,8 +1,7 @@
 # MySQL测试大量数据的COUNT
 
 ## 创建表SQL
-<details>
-<summary>create_table.sql</summary>
+::: create_table.sql
 
 ```sql:no-line-numbers
 -- 创建主表
@@ -21,11 +20,10 @@ created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (parent_id) REFERENCES parent_table(id) ON DELETE CASCADE
 );
 ```
-</details>
+:::
 
 ## 插入数据SQL
-<details>
-<summary>gene_data.sql</summary>
+::: gene_data.sql
 
 ```sql:no-line-numbers
 -- 插入生成的数字到 parent_table
@@ -65,7 +63,7 @@ FROM parent_table p
 LIMIT 10000000; -- 插入 1000 万条记录
 
 ```
-</details>
+:::
 
 ## 查询结果
 ```sql:no-line-numbers

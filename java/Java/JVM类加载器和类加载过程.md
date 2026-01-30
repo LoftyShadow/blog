@@ -562,8 +562,7 @@ com.nmz.spi.service.impl.CustomSvcTwo
 `ServiceLoader<S>` 类型的数据结构。
 不妨看一下 JDK 中 `ServiceLoader<S>` 方法的具体实现。
 
-<details>
-<summary>ServiceLoader</summary>
+::: details ServiceLoader
 
 ```java
 //ServiceLoader实现了Iterable接口，可以遍历所有的服务实现者
@@ -823,7 +822,7 @@ public final class ServiceLoader<S>
 }
 ```
 
-</details>
+:::
 
 - `ServiceLoader` 实现了 Iterable 接口，所以它有迭代器的属性。`ServiceLoader` 实现了迭代器的 `hasNext` 和 `next` 方法。`ServiceLoader`
   持有了 private LazyIterator lookupIterator;，这是一个懒加载类型的迭代器 迭代器（懒加载迭代器）。

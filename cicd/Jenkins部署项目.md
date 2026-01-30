@@ -1,8 +1,7 @@
 # Jenkins部署项目
 
 ## docker compose部署需要环境
-<details>
-<summary>docker-compose及其相关配置信息</summary>
+::: details docker-compose及其相关配置信息
 
 ```yaml
 version: '3.8'
@@ -123,7 +122,8 @@ server {
     }
 }
 ```
-</details>
+
+:::
 
 ## 配置Gitea密钥信息
 ![img.png](jenkins/img.png)
@@ -146,8 +146,7 @@ server {
 
 ## 编写pipline发布JekinsFile
 
-<details>
-<summary>pipline对应JekinsFile</summary>
+::: details pipline对应JekinsFile
 
 ```text
 pipeline {
@@ -210,5 +209,6 @@ pipeline {
     }
 }
 ```
-</details>
+
+:::
 

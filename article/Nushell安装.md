@@ -22,8 +22,7 @@ cd c:/SoftWare/Nginx
 ```
 自定义在script中的脚本可以直接通过`source xxx`执行（如果直接定义自定义command也可以，不过我需要在neovim中调用该命令）
 
-<details>
-<summary>个人配置</summary>
+::: details 个人配置
 
 ```text
 # config.nu
@@ -150,4 +149,5 @@ def nr [module] {
     nginx.exe -s reload
 }
 ```
-</details>
+
+:::

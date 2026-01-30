@@ -37,8 +37,7 @@ nacos.naming.expireInstance=true
 
 # mysql新建nacos的数据库，并执行脚本：
 
-<details>
-<summary>nacos.sql</summary>
+::: details nacos.sql
 
 ```sql
 /*
@@ -263,7 +262,8 @@ INSERT INTO users (username, password, enabled) VALUES ('nacos', '$2a$10$EuWPZHz
 
 INSERT INTO roles (username, role) VALUES ('nacos', 'ROLE_ADMIN');
 ```
-</details>
+
+:::
 
 
 

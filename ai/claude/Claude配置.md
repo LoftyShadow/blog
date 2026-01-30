@@ -1,6 +1,4 @@
-<details>
-
-<summary>MCP整理</summary>
+::: details MCP整理
 
 ```json
 {
@@ -75,11 +73,9 @@
 }
 ```
 
-</details>
+:::
 
-<details>
-
-<summary>setting.json</summary>
+::: details setting.json (Windows)
 
 ```json
 {
@@ -149,11 +145,9 @@
 }
 ```
 
-</details>
+:::
 
-<details>
-
-<summary>setting.json (Linux)</summary>
+::: details setting.json (Linux)
 
 ```json
 {
@@ -223,4 +217,4 @@
 }
 ```
 
-</details>
+:::

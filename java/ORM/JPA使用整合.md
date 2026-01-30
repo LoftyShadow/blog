@@ -12,8 +12,7 @@ public enum GenerationType {
 
 `@MappedSuperclass` 是 Java Persistence API (JPA) 中的一个注解，用于指示某个类是一个映射的超类（Mapped Superclass）。映射的超类类似于普通的 Java 类，但它不会被映射到数据库表，而是作为其他实体类的基类，用于共享字段和方法。  
 总之，`@MappedSuperclass` 注解允许你在 JPA 中创建一个共享属性和方法的基类，而不需要将这些属性和方法映射到数据库表中。
-<details>
-<summary>实体类</summary>
+::: details 实体类
 
 ```java
 @MappedSuperclass
@@ -91,4 +90,4 @@ public class BaseEntity implements Serializable {
     }
 }
 ```
-</details>
+:::

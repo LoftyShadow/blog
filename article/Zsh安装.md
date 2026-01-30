@@ -25,8 +25,7 @@ fi
 mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
 
-<details>
-<summary>个人配置</summary>
+::: details 个人配置
 
 ```text
 
@@ -104,7 +103,8 @@ time_format = "%R"                                      # Hour:Minute Format
 style = "bg:#1d2230"
 format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 ```
-</details>
+
+:::
 
 在`~/.zshrc`最后增加
 ```text
@@ -142,8 +142,7 @@ winget install BurntSushi.ripgrep.MSVC
 winget install sharkdp.fd
 ```
 
-<details>
-<summary>个人配置</summary>
+::: details 个人配置
 
 ```
 # The following lines were added by compinstall
@@ -214,7 +213,8 @@ function va(){
 eval "$(starship init zsh)"
 
 ```
-</details>
+
+:::
 
 # 安装 Oh My Zsh(不推荐)
 进入[官网](https://ohmyz.sh/#install)，复制首页命令进行安装
@@ -243,8 +243,7 @@ vi ~/.zshrc
 source ~/.zshrc
 ```
 
-<details>
-<summary>个人 zsh 配置</summary>
+::: details 个人 zsh 配置
 
 ```text
 #
@@ -397,4 +396,5 @@ function nn(){
 }
 
 ```
-</details>
+
+:::

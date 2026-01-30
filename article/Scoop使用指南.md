@@ -412,8 +412,7 @@ Scoop 是 Windows 平台上非常优秀的包管理器，具有以下优点：
 
 推荐所有 Windows 开发者使用 Scoop 来管理开发工具和命令行软件。
 
-<details>
-<summary>个人软件流程</summary>
+::: details 个人软件流程
 
 ```bash
 # 安装源
@@ -431,4 +430,5 @@ scoop install wezterm-nightly starship nu neovim yazi-nightly lazygit
 scoop install altsnap
 
 ```
-</details>
+
+:::

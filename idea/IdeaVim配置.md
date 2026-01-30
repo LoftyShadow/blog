@@ -102,7 +102,7 @@ map gh <Action>(QuickJavaDoc)
 map gs <Action>(GotoSuperMethod)
 "跳转到使用
 map gr <Action>(ShowUsages)
-"查找所以引用
+"查找所有引用
 map gR <Action>(FindUsages)
 "跳转到下一个改变
 map ]c <action>(VcsShowNextChangeMarker)

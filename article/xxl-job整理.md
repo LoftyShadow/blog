@@ -27,8 +27,7 @@ implementation group: 'com.xuxueli', name: 'xxl-job-core', version: '2.4.0'
 调度中心支持集群部署，集群情况下各节点务必连接同一个mysql实例;  
 如果mysql做主从,调度中心集群节点务必强制走主库;
 
-<details>
-<summary>tables_xxl_job.sql</summary>
+::: details tables_xxl_job.sql
 
 ```sql
 #
@@ -154,7 +153,8 @@ INSERT INTO `xxl_job_lock` ( `lock_name`) VALUES ( 'schedule_lock');
 commit;
 
 ```
-</details>
+
+:::
 
 # 4. 编译源码
 解压源码,按照maven格式将源码导入IDE, 使用maven进行编译即可，源码结构如下：
