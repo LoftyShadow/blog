@@ -176,9 +176,9 @@ let g:WhichKeyDesc_PinEditors = "<leader>bp 固定当前标签"
 
 "==================<leader>c============
 let g:WhichKeyDesc_Choose = "<leader>c 选择相关"
-"选择运行/debug
-nmap <leader>cr <action>(RunConfiguration)
-let g:WhichKeyDesc_RunConfiguration = "<leader>cr 选择运行/debug"
+"重命名
+nmap <leader>cr <action>(RenameElement)
+let g:WhichKeyDesc_CodeRename = "<leader>cr 重命名"
 
 "==================<leader>e============
 "使焦点转移到 NERDTree 窗口
@@ -338,9 +338,9 @@ let g:WhichKeyDesc_Rerun = "<leader>rr 重新运行最近一次运行的程序�
 "重新运行最近一次运行的测试（Unit Tests）(Ctrl + Shift + F10)
 nmap <leader>rt <action>(RerunTests)
 let g:WhichKeyDesc_RerunTests = "<leader>rt 重新运行最近一次运行的测试（Unit Tests）"
-"在代码中快速更改一个标识符的名称，并自动处理所有相关的引用(Shift + F6)
-map <leader>rn <action>(RenameElement)
-let g:WhichKeyDesc_RenameElement = "<leader>rn 在代码中快速更改一个标识符的名称，并自动处理所有相关的引用"
+"运行代码
+map <leader>rc <action>(RunConfiguration)
+let g:WhichKeyDesc_RunConfiguration = "<leader>rc 运行代码"
 
 "==========================<leader>s=============================
 let g:WhichKeyDesc_Split = "<leader>s 分屏相关"
