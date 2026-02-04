@@ -435,6 +435,10 @@ export const sidebar: Sidebar = {
                     text: "Spring的@Cacheable原理",
                     link: "/java/Spring/Spring的@Cacheable原理.md",
                 },
+                {
+                    text: "Logback日志配置",
+                    link: "/java/Spring/Logback日志配置.md",
+                },
             ],
         },
         // {
