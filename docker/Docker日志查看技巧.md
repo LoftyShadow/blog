@@ -115,18 +115,62 @@ docker logs <container_id> 2>&1 | grep ERROR | wc -l
 docker logs <container_id> 2>&1 | awk '{print $3}' | sort | uniq -c
 ```
 
-### 3. 保存日志到文件
+### 3. 导出日志到文件
 
 ```bash
-# 保存日志到文件
+# 导出全部日志到文件（包含 stdout 和 stderr）
 docker logs <container_id> > container.log 2>&1
 
-# 保存最近的日志
-docker logs --since 1h <container_id> > last_hour.log 2>&1
+# 导出最近 N 分钟的日志
+docker logs --since 10m plg-backend-1 > /tmp/plg-backend.log 2>&1
+docker logs --since 30m <container_id> > /tmp/last_30min.log 2>&1
 
-# 保存并实时查看
-docker logs -f <container_id> 2>&1 | tee container.log
+# 导出最近 N 小时的日志
+docker logs --since 1h <container_id> > /tmp/last_hour.log 2>&1
+docker logs --since 2h <container_id> > /tmp/last_2hours.log 2>&1
+
+# 导出指定时间范围的日志
+docker logs --since "2024-01-01T10:00:00" --until "2024-01-01T12:00:00" <container_id> > /tmp/time_range.log 2>&1
+
+# 导出带时间戳的日志
+docker logs -t --since 10m <container_id> > /tmp/with_timestamp.log 2>&1
+
+# 导出最后 N 行日志
+docker logs --tail 1000 <container_id> > /tmp/last_1000_lines.log 2>&1
+
+# 导出并实时追加（适合持续监控）
+docker logs -f <container_id> >> /tmp/container.log 2>&1 &
+
+# 导出并同时在终端显示
+docker logs --since 10m <container_id> 2>&1 | tee /tmp/container.log
+
+# 导出过滤后的日志（只保存 ERROR）
+docker logs --since 1h <container_id> 2>&1 | grep ERROR > /tmp/errors.log
+
+# 导出多个容器的日志到同一文件
+for container in plg-backend-1 plg-frontend-1; do
+    echo "=== $container ===" >> /tmp/all_services.log
+    docker logs --since 10m $container >> /tmp/all_services.log 2>&1
+done
 ```
+
+**常用导出场景：**
+
+```bash
+# 场景 1：排查问题时快速导出最近日志
+docker logs --since 10m plg-backend-1 > /tmp/plg-backend.log 2>&1
+
+# 场景 2：导出日志发送给同事分析
+docker logs -t --since 1h <container_id> > ~/Desktop/issue_logs.log 2>&1
+
+# 场景 3：定时备份日志（可加入 crontab）
+docker logs --since 24h <container_id> > /var/log/docker/$(date +%Y%m%d)_container.log 2>&1
+
+# 场景 4：导出压缩日志（节省空间）
+docker logs --since 1h <container_id> 2>&1 | gzip > /tmp/container.log.gz
+```
+
+**说明**：`2>&1` 将 stderr 重定向到 stdout，确保错误日志也被导出到文件中。
 
 ## 多容器日志查看
 

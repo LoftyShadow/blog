@@ -441,6 +441,16 @@ export const sidebar: Sidebar = {
                 },
             ],
         },
+        {
+            text: "设计模式",
+            collapsed: false,
+            items: [
+                {
+                    text: "责任链模式",
+                    link: "/java/设计模式/责任链模式.md",
+                },
+            ],
+        },
         // {
         //     text: 'RabbitMQ',
         //     items: [
