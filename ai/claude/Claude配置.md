@@ -58,6 +58,10 @@
       ],
       "env": {}
     },
+    "jetbrains": {
+      "type": "sse",
+      "url": "http://localhost:64342/sse"
+    },
     "brave-search": {
       "type": "stdio",
       "command": "npx",
@@ -125,7 +129,9 @@
       "mcp__sequential-thinking__sequentialthinking",
       "mcp__memory",
       "mcp__fetch",
-      "mcp__ide__getDiagnostics",
+      "mcp__Goland__*",
+      "mcp__Idea__*",
+      "mcp__PyCharm__*",
       "Read",
       "WebSearch",
       "WebFetch",
@@ -197,7 +203,9 @@
       "mcp__sequential-thinking__sequentialthinking",
       "mcp__memory",
       "mcp__fetch",
-      "mcp__ide__getDiagnostics",
+      "mcp__Goland__*",
+      "mcp__Idea__*",
+      "mcp__PyCharm__*",
       "Read",
       "WebSearch",
       "WebFetch",

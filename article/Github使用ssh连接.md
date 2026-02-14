@@ -29,3 +29,76 @@ ssh -T git@github.com
 git config user.name "niemingzhi"
 git config user.email "1094290505@qq.com"
 ```
+
+# 复制公钥到远程服务器
+
+如果是连接远程服务器（非 GitHub），可以用 `ssh-copy-id` 自动复制公钥：
+
+```shell
+# 默认复制 ~/.ssh/id_rsa.pub 或 ~/.ssh/id_ed25519.pub
+ssh-copy-id user@remote-server
+
+# 指定特定公钥文件
+ssh-copy-id -i ~/.ssh/my_key.pub user@remote-server
+```
+
+执行后输入一次密码，之后就可以免密登录了。
+
+# SSH Config 配置
+
+编辑 `~/.ssh/config` 文件，可以简化 SSH 连接：
+
+```shell
+# GitHub
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+
+# 自定义别名连接服务器
+Host myserver
+    HostName 192.168.1.100
+    User root
+    Port 22
+    IdentityFile ~/.ssh/id_ed25519
+
+# 多个 GitHub 账号场景
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work
+```
+
+配置后可以直接使用别名连接：
+
+```shell
+# 连接服务器
+ssh myserver
+
+# 克隆仓库（多账号场景）
+git clone git@github-work:company/repo.git
+```
+
+# 保持连接（心跳配置）
+
+防止 SSH 连接因空闲而断开，在 `~/.ssh/config` 中添加：
+
+```shell
+# 全局配置（对所有主机生效）
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+```
+
+- `ServerAliveInterval 60`：每 60 秒发送一次心跳包
+- `ServerAliveCountMax 3`：连续 3 次无响应才断开连接
+
+也可以针对特定主机配置：
+
+```shell
+Host myserver
+    HostName 192.168.1.100
+    User root
+    ServerAliveInterval 30
+    ServerAliveCountMax 5
+```

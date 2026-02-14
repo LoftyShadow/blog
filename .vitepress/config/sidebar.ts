@@ -159,6 +159,10 @@ export const sidebar: Sidebar = {
             text: "Kubernetes中Pod、Node和Service的区别",
             link: "/docker/Kubernetes中Pod、Node和Service的区别.md",
         },
+        {
+            text: "Supabase快速入门",
+            link: "/docker/Supabase快速入门.md",
+        },
     ],
     "/idea/": [
         {
@@ -500,6 +504,10 @@ export const sidebar: Sidebar = {
         {
             text: "Envoy Gateway快速入门",
             link: "/linux/Envoy Gateway快速入门.md",
+        },
+        {
+            text: "Fedora系统DNF与Flatpak使用指南",
+            link: "/linux/Fedora系统DNF与Flatpak使用指南.md",
         },
     ],
     "/ai/": [
