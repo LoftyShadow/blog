@@ -356,6 +356,10 @@ export const sidebar: Sidebar = {
             collapsed: false,
             items: [
                 {
+                    text: "Redis事务整理",
+                    link: "/java/Redis/Redis事务整理.md",
+                },
+                {
                     text: "Redis过期删除策略与内存淘汰策略",
                     link: "/java/Redis/Redis过期删除策略与内存淘汰策略.md",
                 },
@@ -369,7 +373,7 @@ export const sidebar: Sidebar = {
                 },
                 {
                     text: "Redis过期命令执行流程",
-                    link: "/java/Redis/Redis的不同数据类型及使用场景.md",
+                    link: "/java/Redis/Redis过期命令执行流程.md",
                 },
                 {
                     text: "Redis的不同数据类型及使用场景",
