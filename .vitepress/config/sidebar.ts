@@ -537,6 +537,10 @@ export const sidebar: Sidebar = {
                     text: "默认Prompt",
                     link: "/ai/common/默认Prompt.md",
                 },
+                {
+                    text: "安装chrome-devtools-mcp",
+                    link: "/ai/common/安装chrome-devtools-mcp.md",
+                },
             ],
         },
     ],
