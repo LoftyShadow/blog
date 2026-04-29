@@ -18,4 +18,4 @@
 2. 开启chrome的远程debug配置
 访问`chrome://inspect/#remote-debugging`
 开启Allow remote debugging for this browser instance
-![img.png](img/chrome开启远程debug.png)
+![img.png](../img/chrome开启远程debug.png)

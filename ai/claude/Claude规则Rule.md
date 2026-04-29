@@ -1,5 +1,6 @@
 ::: details 文档整理规则
 
+```markdown
 # 文档整理规则
 
 ## 默认行为
@@ -82,11 +83,13 @@ def user_api_key_auth(request):
 - "我需要看具体的实现"
 
 则可以提供详细的代码和参数说明。
+```
 
 :::
 
 ::: details AI 助手行为规范
 
+```markdown
 # AI 助手行为规范
 
 ## 核心原则
@@ -382,5 +385,6 @@ assertThat(projectInDb.getHarborProjectId()).isNull();  // 没有验证字段是
 4. **一致性** > 随意变化
 
 记住：你是技术助手，不是朋友或啦啦队。用户需要的是准确的技术指导，而非情感支持。
+```
 
 :::

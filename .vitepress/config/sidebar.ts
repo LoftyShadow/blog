@@ -535,11 +535,15 @@ export const sidebar: Sidebar = {
             items: [
                 {
                     text: "默认Prompt",
-                    link: "/ai/common/默认Prompt.md",
+                    link: "/ai/common/prompts/默认Prompt.md",
                 },
                 {
                     text: "安装chrome-devtools-mcp",
-                    link: "/ai/common/安装chrome-devtools-mcp.md",
+                    link: "/ai/common/mcp/安装chrome-devtools-mcp.md",
+                },
+                {
+                    text: "前端skill",
+                    link: "/ai/common/skills/前端skill.md",
                 },
             ],
         },
