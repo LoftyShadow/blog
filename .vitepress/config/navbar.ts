@@ -7,14 +7,20 @@ export const nav: NavItem[] = [
     link: "/",
   },
   {
-    text: "Python整理",
-    activeMatch: "^/python/",
-    link: "/python/FastAPI快速入门.md",
-  },
-  {
-    text: "Java整理",
-    activeMatch: "^/java/",
-    link: "/java/Java/常用的JVM参数和命令.md",
+    text: "开发整理",
+    activeMatch: "^/(python|java)/",
+    items: [
+      {
+        text: "Python整理",
+        activeMatch: "^/python/",
+        link: "/python/FastAPI快速入门.md",
+      },
+      {
+        text: "Java整理",
+        activeMatch: "^/java/",
+        link: "/java/Java/常用的JVM参数和命令.md",
+      },
+    ],
   },
   {
     text: "CI/CD",
@@ -37,23 +43,24 @@ export const nav: NavItem[] = [
   //   link: "/leetcode/menu.md",
   // },
   {
-    text: "书籍整理",
-    activeMatch: "^/books/",
-    link: "/books/menu.md",
-  },
-  {
-    text: "文章整理",
-    activeMatch: "^/article/",
-    link: "/article/jq常用命令.md",
-  },
-  {
-    text: "常用配置工具类整理",
-    activeMatch: "^/utils/",
-    link: "/utils/Utils工具类/计算工具类ArithUtils.md",
+    text: "阅读整理",
+    activeMatch: "^/(books|article)/",
+    items: [
+      {
+        text: "书籍整理",
+        activeMatch: "^/books/",
+        link: "/books/menu.md",
+      },
+      {
+        text: "文章整理",
+        activeMatch: "^/article/",
+        link: "/article/jq常用命令.md",
+      },
+    ],
   },
   {
     text: "杂项",
-    activeMatch: "^/snippets/",
+    activeMatch: "^/(snippets|utils)/",
     items: [
       {
         text: "常用软件",
@@ -75,6 +82,11 @@ export const nav: NavItem[] = [
         text: "Idea整理",
         activeMatch: "^/idea/",
         link: "/idea/Idea的liveTemplates整理.md",
+      },
+      {
+        text: "常用配置工具类整理",
+        activeMatch: "^/utils/",
+        link: "/utils/Utils工具类/计算工具类ArithUtils.md",
       },
     ],
   },
