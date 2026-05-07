@@ -276,7 +276,7 @@ export const sidebar: Sidebar = {
         {
             text: "Win11关闭WindowsDefender实时保护",
             link: "/article/Win11关闭WindowsDefender实时保护.md",
-        }
+        },
     ],
     "/java/": [
         {
@@ -477,6 +477,14 @@ export const sidebar: Sidebar = {
         },
     ],
     "/linux/": [
+        {
+            text: "btop使用指南",
+            link: "/linux/btop使用指南.md",
+        },
+        {
+            text: "Niri下微信飞书剪贴板同步",
+            link: "/linux/Niri下微信飞书剪贴板同步.md",
+        },
         {
             text: "Tmux快速入门",
             link: "/linux/Tmux快速入门.md",
