@@ -542,28 +542,46 @@ export const sidebar: Sidebar = {
             collapsed: false,
             items: [
                 {
-                    text: "默认Prompt",
-                    link: "/ai/common/prompts/默认Prompt.md",
+                    text: "Prompt",
+                    collapsed: false,
+                    items: [
+                        {
+                            text: "默认Prompt",
+                            link: "/ai/common/prompts/默认Prompt.md",
+                        },
+                    ],
                 },
                 {
-                    text: "安装chrome-devtools-mcp",
-                    link: "/ai/common/mcp/安装chrome-devtools-mcp.md",
+                    text: "MCP",
+                    collapsed: false,
+                    items: [
+                        {
+                            text: "安装chrome-devtools-mcp",
+                            link: "/ai/common/mcp/安装chrome-devtools-mcp.md",
+                        },
+                    ],
                 },
                 {
-                    text: "前端skill",
-                    link: "/ai/common/skills/前端skill.md",
-                },
-                {
-                    text: "后端skill",
-                    link: "/ai/common/skills/后端skill.md",
-                },
-                {
-                    text: "自定义skill整理",
-                    link: "/ai/common/skills/自定义skill整理.md",
-                },
-                {
-                    text: "其余skill",
-                    link: "/ai/common/skills/其余skill.md",
+                    text: "Skill",
+                    collapsed: false,
+                    items: [
+                        {
+                            text: "前端skill",
+                            link: "/ai/common/skills/前端skill.md",
+                        },
+                        {
+                            text: "后端skill",
+                            link: "/ai/common/skills/后端skill.md",
+                        },
+                        {
+                            text: "自定义skill整理",
+                            link: "/ai/common/skills/自定义skill整理.md",
+                        },
+                        {
+                            text: "其余skill",
+                            link: "/ai/common/skills/其余skill.md",
+                        },
+                    ],
                 },
             ],
         },
