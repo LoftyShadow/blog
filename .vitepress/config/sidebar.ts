@@ -558,6 +558,10 @@ export const sidebar: Sidebar = {
                     link: "/ai/common/skills/后端skill.md",
                 },
                 {
+                    text: "自定义skill整理",
+                    link: "/ai/common/skills/自定义skill整理.md",
+                },
+                {
                     text: "其余skill",
                     link: "/ai/common/skills/其余skill.md",
                 },
