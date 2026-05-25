@@ -1,164 +1,60 @@
 # Niri 下微信和飞书的剪贴板同步
 
-## 问题背景
+## 使用场景
 
-在 `niri` 这类 Wayland 合成器下，很多日常应用已经是 Wayland 原生客户端，但微信、飞书、QQ 这类桌面程序经常仍然通过 `X11/Xwayland` 运行。
+在 `niri` 这类 Wayland 合成器下，浏览器、终端等程序通常使用 Wayland 剪贴板，微信、飞书等桌面应用可能仍然运行在 X11/Xwayland 里。两边剪贴板不是同一套协议，所以会出现：
 
-这时会遇到几类看起来像应用问题、实际是剪贴板和沙盒边界导致的问题：
+- Wayland 程序复制文本或图片后，微信、飞书粘贴不到。
+- 微信复制图片时，剪贴板里只有 `file:///...` 路径，粘贴出来不是图片。
+- 浏览器复制图片时，剪贴板同时带有图片和文本/HTML，错误同步后可能只剩一段文本。
 
-- Wayland 应用里复制了文本或图片，微信、飞书里粘贴不上。
-- 微信里复制图片，再粘贴到另一个聊天，只出现 `file:///...jpg` 文件地址，不出现图片。
-- Flatpak 微信保存图片到普通文件夹失败。
+最终做法是运行一个用户级 `systemd` 服务，常驻桥接 Wayland 和 X11 剪贴板。
 
-核心原因有两层：
+## 依赖
 
-- Wayland 剪贴板和 X11 剪贴板是两套机制，系统不会总是自动双向同步。
-- Flatpak 微信的文件路径有沙盒映射，微信内部看到的路径不一定是宿主机真实路径。
-
-## 环境判断
-
-先确认当前会话和微信运行方式：
+需要这些命令：
 
 ```bash
-echo "$XDG_CURRENT_DESKTOP"
-echo "$XDG_SESSION_TYPE"
-flatpak info --show-permissions com.tencent.WeChat
-pgrep -af 'wechat|WeChat|Xwayland|xwayland'
+wl-copy
+wl-paste
+xclip
+xsel
+file
+magick
 ```
 
-本机微信 Flatpak 的关键点是：
-
-```text
-QT_QPA_PLATFORM=xcb
-sockets=x11
-persistent=.xwechat;xwechat_files
-```
-
-也就是微信实际走的是 X11/Xwayland。它在沙盒内看到的：
-
-```text
-/home/niemingzhi/xwechat_files
-```
-
-对应宿主机真实目录：
-
-```text
-/home/niemingzhi/.var/app/com.tencent.WeChat/xwechat_files
-```
-
-## 现象判断
-
-### 查看 Wayland 剪贴板
+Fedora 上可以安装：
 
 ```bash
-wl-paste --list-types
-wl-paste -n
+sudo dnf install wl-clipboard xclip xsel file ImageMagick
 ```
 
-### 查看 X11 剪贴板
+## Flatpak 微信权限
 
-```bash
-env DISPLAY=:0 xclip -selection clipboard -o -target TARGETS
-env DISPLAY=:0 xsel -ob
-```
-
-如果 `wl-paste` 能读到内容，但 X11 侧为空，通常说明 Wayland 内容没有同步到 X11。
-
-如果复制微信图片后看到类似下面的内容：
-
-```text
-file:///home/niemingzhi/xwechat_files/wxid_xxx/temp/RWTemp/2026-05/xxx/xxx.jpg
-```
-
-并且剪贴板类型只有：
-
-```text
-TEXT
-UTF8_STRING
-STRING
-```
-
-没有：
-
-```text
-image/png
-image/jpeg
-```
-
-那就说明当前剪贴板里不是图片数据，而是一段文件 URI 文本。微信再次粘贴时自然只能粘出路径。
-
-## Flatpak 微信保存目录权限
-
-微信 Flatpak 默认可能只有只读下载目录权限，例如：
-
-```text
-filesystems=xdg-download:ro
-```
-
-这样微信不能直接写入 `~/Downloads` 或 `~/Pictures`。
-
-给微信最小可用写入权限：
+如果微信保存图片到下载或图片目录失败，给 Flatpak 微信增加目录权限：
 
 ```bash
 flatpak override --user --filesystem=xdg-download --filesystem=xdg-pictures com.tencent.WeChat
 ```
 
-确认权限：
+查看结果：
 
 ```bash
 flatpak override --user --show com.tencent.WeChat
 flatpak info --show-permissions com.tencent.WeChat
 ```
 
-期望看到：
+如果微信已经在运行，退出后重新打开。
 
-```text
-filesystems=xdg-download;xdg-pictures;
-```
+## 剪贴板同步脚本
 
-如果微信已经在运行，退出并重新打开后新权限才稳定生效。开机自启只要还是通过下面这种方式启动同一个应用 ID，也会继承这个 override：
-
-```text
-flatpak run com.tencent.WeChat %U
-```
-
-撤销权限：
-
-```bash
-flatpak override --user --reset com.tencent.WeChat
-```
-
-## 解决方案
-
-使用一个用户级 `systemd` 服务常驻运行剪贴板同步脚本。
-
-这个脚本做四件事：
-
-1. 监听 Wayland 文本剪贴板，同步到 X11。
-2. 监听 Wayland PNG 图片剪贴板，同步到 X11。
-3. 轮询 X11 剪贴板，把文本或图片同步回 Wayland。
-4. 如果剪贴板文本是 `file://...` 图片 URI，就把它解析成真实图片文件，转换成 `image/png` 后再同步。
-
-需要的命令：
-
-```text
-wl-copy
-wl-paste
-xsel
-xclip
-magick 或 convert
-file
-```
-
-## 脚本文件
-
-路径：
+脚本路径：
 
 ```text
 ~/.local/bin/clipboard-sync
 ```
 
-内容：
+脚本内容：
 
 ```bash
 #!/bin/bash
@@ -198,6 +94,10 @@ remember_type() {
 
 hash_of_file() {
   sha256sum "$1" | awk '{print $1}'
+}
+
+wayland_has_image_type() {
+  wl-paste --list-types 2>/dev/null | awk '/^image\// { found=1 } END { exit !found }'
 }
 
 decode_file_uri() {
@@ -284,6 +184,11 @@ sync_stdin_to_x11() {
   fi
 
   if [ "$selected_type" = "text/plain" ]; then
+    if wayland_has_image_type; then
+      rm -f "$tmp"
+      exit 0
+    fi
+
     image_tmp="$(mktemp "$state_dir/wayland-image.XXXXXX.png")"
     if image_from_text_clipboard "$tmp" "$image_tmp"; then
       selected_type="image/png"
@@ -345,15 +250,20 @@ poll_x11_once() {
     return
   fi
 
-  if [ "$selected_type" = 'image/png' ] || [ "$selected_type" = 'image/jpeg' ]; then
-    if ! timeout 0.5s env DISPLAY="$x11_display" xclip -selection clipboard -o -target "$selected_type" >"$tmp" 2>/dev/null; then
-      rm -f "$tmp"
-      return
-    fi
-  elif ! env DISPLAY="$x11_display" xsel --clipboard --output --selectionTimeout 200 >"$tmp" 2>/dev/null; then
-    rm -f "$tmp"
-    return
-  fi
+  case "$selected_type" in
+    image/*)
+      if ! timeout 0.5s env DISPLAY="$x11_display" xclip -selection clipboard -o -target "$selected_type" >"$tmp" 2>/dev/null; then
+        rm -f "$tmp"
+        return
+      fi
+      ;;
+    *)
+      if ! env DISPLAY="$x11_display" xsel --clipboard --output --selectionTimeout 200 >"$tmp" 2>/dev/null; then
+        rm -f "$tmp"
+        return
+      fi
+      ;;
+  esac
 
   if [ ! -s "$tmp" ]; then
     rm -f "$tmp"
@@ -403,10 +313,16 @@ run_daemon() {
   wl-paste --type text --watch "$0" sync-text-from-wayland &
   local text_watcher_pid=$!
 
-  wl-paste --type image/png --watch "$0" sync-png-from-wayland &
+  wl-paste --type image/png --watch "$0" sync-image-from-wayland image/png &
   local png_watcher_pid=$!
 
-  trap "kill $text_watcher_pid $png_watcher_pid 2>/dev/null || true" EXIT INT TERM
+  wl-paste --type image/jpeg --watch "$0" sync-image-from-wayland image/jpeg &
+  local jpeg_watcher_pid=$!
+
+  wl-paste --type image/webp --watch "$0" sync-image-from-wayland image/webp &
+  local webp_watcher_pid=$!
+
+  trap "kill $text_watcher_pid $png_watcher_pid $jpeg_watcher_pid $webp_watcher_pid 2>/dev/null || true" EXIT INT TERM
   poll_x11_forever
 }
 
@@ -417,17 +333,20 @@ case "${1:-daemon}" in
   sync-text-from-wayland)
     sync_stdin_to_x11 text/plain
     ;;
+  sync-image-from-wayland)
+    sync_stdin_to_x11 "${2:-image/png}"
+    ;;
   sync-png-from-wayland)
     sync_stdin_to_x11 image/png
     ;;
   *)
-    echo "usage: $0 [daemon|sync-text-from-wayland|sync-png-from-wayland]" >&2
+    echo "usage: $0 [daemon|sync-text-from-wayland|sync-image-from-wayland type|sync-png-from-wayland]" >&2
     exit 2
     ;;
 esac
 ```
 
-授权：
+授权并检查语法：
 
 ```bash
 chmod +x ~/.local/bin/clipboard-sync
@@ -436,13 +355,13 @@ bash -n ~/.local/bin/clipboard-sync
 
 ## systemd 用户服务
 
-路径：
+服务路径：
 
 ```text
 ~/.config/systemd/user/clipboard-sync.service
 ```
 
-内容：
+服务内容：
 
 ```ini
 [Unit]
@@ -460,7 +379,7 @@ RestartSec=1
 WantedBy=graphical-session.target
 ```
 
-启用：
+启用并启动：
 
 ```bash
 systemctl --user daemon-reload
@@ -476,78 +395,93 @@ systemctl --user restart clipboard-sync.service
 查看状态：
 
 ```bash
-systemctl --user status clipboard-sync.service
+systemctl --user status clipboard-sync.service --no-pager
 ```
 
-查看日志：
+正常情况下能看到这些进程：
 
-```bash
-journalctl --user -u clipboard-sync.service --no-pager -n 80
+```text
+clipboard-sync daemon
+wl-paste --type text --watch ...
+wl-paste --type image/png --watch ...
+wl-paste --type image/jpeg --watch ...
+wl-paste --type image/webp --watch ...
 ```
 
-## 验证方法
+## 验证
 
-### 文本：Wayland 到 X11
+### 文本同步
+
+Wayland 到 X11：
 
 ```bash
-printf 'wayland-auto-sync-check' | wl-copy
+printf 'wayland-auto-sync-check' | wl-copy --type text/plain
 sleep 1
-env DISPLAY=:0 xsel -ob
+env DISPLAY=:0 xsel --clipboard --output --selectionTimeout 200
 ```
 
-### 文本：X11 到 Wayland
+X11 到 Wayland：
 
 ```bash
-printf 'x11-auto-sync-check' | env DISPLAY=:0 xsel -ib
+printf 'x11-auto-sync-check' | env DISPLAY=:0 xsel --clipboard --input
 sleep 1
 wl-paste -n
 ```
 
-### 图片：Wayland 到 X11
+### 图片同步
+
+Wayland 到 X11：
 
 ```bash
-wl-copy --type image/png </tmp/test.png
+magick -size 4x4 xc:red /tmp/clipboard-test.png
+wl-copy --type image/png </tmp/clipboard-test.png
 sleep 1
 env DISPLAY=:0 xclip -selection clipboard -o -target image/png >/tmp/from-x11.png
-file /tmp/from-x11.png
+file --brief --mime-type /tmp/from-x11.png
 ```
 
-### 图片：X11 到 Wayland
+X11 到 Wayland：
 
 ```bash
-env DISPLAY=:0 xclip -selection clipboard -target image/png -in </tmp/test.png
+magick -size 4x4 xc:blue /tmp/clipboard-test.png
+env DISPLAY=:0 xclip -selection clipboard -target image/png -in </tmp/clipboard-test.png
 sleep 1
 wl-paste --type image/png >/tmp/from-wayland.png
-file /tmp/from-wayland.png
+file --brief --mime-type /tmp/from-wayland.png
 ```
 
-### 微信 file URI 图片路径转换
-
-先从微信缓存里找一张最近的图片：
+浏览器复制图片后可以看类型：
 
 ```bash
-find ~/.var/app/com.tencent.WeChat/xwechat_files \
-  -path '*temp/RWTemp*' \
-  -type f \
-  \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) \
-  -printf '%T@ %p\n' |
-  sort -nr |
-  sed -n '1p'
+wl-paste --list-types
+env DISPLAY=:0 xclip -selection clipboard -o -target TARGETS
 ```
 
-假设找到的宿主机路径是：
+期望保留 `image/png`、`image/jpeg` 或 `image/webp`，而不是只剩普通文本。
 
-```text
-/home/niemingzhi/.var/app/com.tencent.WeChat/xwechat_files/wxid_xxx/temp/RWTemp/2026-05/xxx/xxx.jpg
-```
+### 微信 file URI 转图片
 
-对应微信沙盒里的 URI 是：
+微信可能把图片复制成这种 URI：
 
 ```text
 file:///home/niemingzhi/xwechat_files/wxid_xxx/temp/RWTemp/2026-05/xxx/xxx.jpg
 ```
 
-模拟微信把这个 URI 放进 X11 剪贴板：
+脚本会把沙盒路径：
+
+```text
+/home/niemingzhi/xwechat_files/
+```
+
+映射到宿主机路径：
+
+```text
+/home/niemingzhi/.var/app/com.tencent.WeChat/xwechat_files/
+```
+
+然后读取真实文件并转换成 `image/png` 剪贴板数据。
+
+可以手动模拟：
 
 ```bash
 printf 'file:///home/niemingzhi/xwechat_files/wxid_xxx/temp/RWTemp/2026-05/xxx/xxx.jpg' |
@@ -558,113 +492,53 @@ wl-paste --list-types
 env DISPLAY=:0 xclip -selection clipboard -o -target TARGETS
 ```
 
-期望结果：
+如果 URI 指向真实存在的图片，期望能看到 `image/png`。
 
-```text
-image/png
-```
+## 维护
 
-同时 X11 侧应该能读出图片数据：
+查看服务日志：
 
 ```bash
-env DISPLAY=:0 xclip -selection clipboard -o -target image/png | wc -c
+journalctl --user -u clipboard-sync.service --no-pager -n 80
 ```
 
-## 常见排查
-
-### 1. 服务是否在跑
-
-```bash
-systemctl --user is-active clipboard-sync.service
-pgrep -af 'clipboard-sync|wl-paste --watch'
-```
-
-正常情况下应该有：
-
-```text
-clipboard-sync daemon
-wl-paste --type text --watch ...
-wl-paste --type image/png --watch ...
-```
-
-### 2. 不要同时跑多套同步脚本
-
-如果手动调试时又起了一份同步脚本，可能出现：
-
-- 多个 watcher 同时占用剪贴板。
-- 文本和图片状态互相覆盖。
-- 服务是 `active`，但行为不稳定。
-
-排查：
+确认没有重复运行多份同步脚本：
 
 ```bash
 ps -ef | rg 'clipboard-sync|wl-paste --watch|xclip|xsel'
 ```
 
-### 3. 微信复制图片仍然是路径
-
-先看剪贴板类型：
+更新脚本后重启服务：
 
 ```bash
-wl-paste --list-types
-env DISPLAY=:0 xclip -selection clipboard -o -target TARGETS
+bash -n ~/.local/bin/clipboard-sync
+systemctl --user restart clipboard-sync.service
 ```
 
-如果仍然只有文本类型，再看文本内容：
+停止服务：
 
 ```bash
-wl-paste --type text
-env DISPLAY=:0 xclip -selection clipboard -o -target UTF8_STRING
+systemctl --user disable --now clipboard-sync.service
 ```
 
-如果 URI 指向 `xwechat_files`，但脚本没有转成图片，重点检查：
-
-- 宿主机真实文件是否存在。
-- `magick` 或 `convert` 是否可用。
-- `journalctl --user -u clipboard-sync.service` 是否有脚本错误。
-
-### 4. 微信进程状态
-
-已经启动很久的微信有时会缓存剪贴板状态。服务正常但微信仍然粘贴异常时，可以彻底退出微信再开。
-
-查看微信进程：
+撤销 Flatpak 微信目录权限：
 
 ```bash
-flatpak ps --columns=application,pid | rg WeChat
-pgrep -af 'wechat|WeChat'
+flatpak override --user --reset com.tencent.WeChat
 ```
-
-### 5. Flatpak portal 日志
-
-`niri` 环境下可能看到类似：
-
-```text
-Could not get window list
-Inhibiting other than idle not supported
-```
-
-这通常是 portal 后端能力提示，不影响普通剪贴板和保存图片。只有文件选择器、截图、录屏、通知、后台运行等能力异常时，才需要继续查 portal。
-
-## 适用范围
-
-这套方案适合：
-
-- `niri`、`sway` 等 Wayland 合成器。
-- 微信、飞书、QQ 等通过 Xwayland 运行的应用。
-- 需要在 Wayland 原生应用和 X11 应用之间同步文本、PNG 图片的场景。
-- Flatpak 微信复制图片时只给出 `file://...xwechat_files...jpg` 的场景。
 
 ## 限制
 
-当前重点处理：
+当前方案重点处理：
 
 - 纯文本
 - `image/png`
 - `image/jpeg`
-- 指向本机真实图片的 `file://` URI
+- `image/webp`
+- 指向本机真实图片文件的 `file://` URI
 - Flatpak 微信的 `xwechat_files` 路径映射
 
-不保证处理：
+不处理：
 
 - 私有 MIME 类型
 - 富文本
@@ -672,13 +546,3 @@ Inhibiting other than idle not supported
 - 多文件列表
 - 远程 URI
 - 已被微信清理掉的临时图片文件
-
-## 小结
-
-在 `niri + Xwayland + Flatpak 微信` 的组合下，微信和飞书粘贴异常通常不是单一原因：
-
-- Wayland 和 X11 剪贴板需要桥接。
-- 微信复制图片时可能只给出沙盒内 `file://` 路径。
-- Flatpak 保存文件还需要明确的目录写权限。
-
-用用户级 `systemd` 服务做剪贴板双向同步，并把微信图片 URI 转换成真正的 `image/png` 剪贴板数据后，微信和飞书的大部分复制粘贴问题都能压下去。

@@ -9,3 +9,9 @@ skill-creator Anthropics 官方出品
 ```bash
 npx skills add https://github.com/anthropics/skills/tree/main/skills/skill-creator 
 ```
+
+Markdown 转 HTML
+
+```bash
+npx skills add alchaincyf/huashu-md-html -g -y
+```
