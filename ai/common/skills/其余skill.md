@@ -13,5 +13,17 @@ npx skills add https://github.com/anthropics/skills/tree/main/skills/skill-creat
 Markdown 转 HTML
 
 ```bash
-npx skills add alchaincyf/huashu-md-html -g -y
+npx skills add alchaincyf/huashu-md-html
+```
+
+反复询问完整需求信息
+
+```bash
+npx skills add mattpocock/skills@grill-me
+```
+
+跨平台项目skill
+
+```bash
+npx skills add yetone/native-feel-skill
 ```

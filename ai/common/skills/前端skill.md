@@ -1,7 +1,7 @@
 ui-ux-pro-max
 
 ```bash
-npx skills add nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max -g -y
+npx skills add nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max
 ```
 
 react best practice vercel 官方出品
@@ -31,11 +31,11 @@ npx skills add https://github.com/anthropics/skills --skill frontend-design
 vitest测试skill
 
 ```bash
-npx skills add https://github.com/onmax/nuxt-skills --skill vitest -g -y
+npx skills add https://github.com/onmax/nuxt-skills --skill vitest
 ```
 
 tailwindcss v4
 
 ```bash
-npx skills add https://github.com/existential-birds/beagle --skill tailwind-v4 -g -y
+npx skills add https://github.com/existential-birds/beagle --skill tailwind-v4
 ```
