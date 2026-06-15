@@ -475,6 +475,10 @@ export const sidebar: Sidebar = {
             text: "Jenkins部署项目",
             link: "/cicd/Jenkins部署项目.md",
         },
+        {
+            text: "GitHub Actions发版Workflow整理",
+            link: "/cicd/GitHubActions发版Workflow整理.md",
+        },
     ],
     "/linux/": [
         {
