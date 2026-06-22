@@ -288,6 +288,10 @@ export const sidebar: Sidebar = {
                     link: "/java/Java/常用的JVM参数和命令.md",
                 },
                 {
+                    text: "HashMap源码设计",
+                    link: "/java/Java/HashMap源码设计.md",
+                },
+                {
                     text: "Java阻塞队列整理",
                     link: "/java/Java/Java阻塞队列整理.md",
                 },
@@ -302,6 +306,10 @@ export const sidebar: Sidebar = {
                 {
                     text: "经典垃圾收集器",
                     link: "/java/Java/经典垃圾收集器.md",
+                },
+                {
+                    text: "JVM运行时数据区和OOM排查",
+                    link: "/java/Java/JVM运行时数据区和OOM排查.md",
                 },
                 {
                     text: "OSI七层协议",
@@ -332,6 +340,14 @@ export const sidebar: Sidebar = {
                 {
                     text: "线程池相关",
                     link: "/java/多线程相关/线程池相关.md",
+                },
+                {
+                    text: "Java内存模型JMM",
+                    link: "/java/多线程相关/Java内存模型JMM.md",
+                },
+                {
+                    text: "CAS和原子类",
+                    link: "/java/多线程相关/CAS和原子类.md",
                 },
                 {
                     text: "线程的五种状态",
@@ -379,6 +395,14 @@ export const sidebar: Sidebar = {
                     text: "Redis的不同数据类型及使用场景",
                     link: "/java/Redis/Redis的不同数据类型及使用场景.md",
                 },
+                {
+                    text: "Redis分布式锁",
+                    link: "/java/Redis/Redis分布式锁.md",
+                },
+                {
+                    text: "Redis高可用和集群",
+                    link: "/java/Redis/Redis高可用和集群.md",
+                },
             ],
         },
         {
@@ -388,6 +412,46 @@ export const sidebar: Sidebar = {
                 {
                     text: "ES自定义ik分词配置",
                     link: "/java/ElasticSearch/ES自定义ik分词配置.md",
+                },
+                {
+                    text: "ES核心原理",
+                    link: "/java/ElasticSearch/ES核心原理.md",
+                },
+            ],
+        },
+        {
+            text: "MQ",
+            collapsed: false,
+            items: [
+                {
+                    text: "MQ横向对比",
+                    link: "/java/MQ/MQ横向对比.md",
+                },
+                {
+                    text: "RabbitMQ防止消息丢失",
+                    link: "/java/MQ/RabbitMQ防止消息丢失.md",
+                },
+                {
+                    text: "消息队列核心问题",
+                    link: "/java/MQ/消息队列核心问题.md",
+                },
+            ],
+        },
+        {
+            text: "MySQL",
+            collapsed: false,
+            items: [
+                {
+                    text: "MySQL索引原理",
+                    link: "/java/MySQL/MySQL索引原理.md",
+                },
+                {
+                    text: "MySQL事务和MVCC",
+                    link: "/java/MySQL/MySQL事务和MVCC.md",
+                },
+                {
+                    text: "MySQL日志和主从复制",
+                    link: "/java/MySQL/MySQL日志和主从复制.md",
                 },
             ],
         },
@@ -422,6 +486,14 @@ export const sidebar: Sidebar = {
                 {
                     text: "Sping解决循环依赖",
                     link: "/java/Spring/Sping解决循环依赖.md",
+                },
+                {
+                    text: "SpringAOP原理",
+                    link: "/java/Spring/SpringAOP原理.md",
+                },
+                {
+                    text: "SpringBoot自动配置原理",
+                    link: "/java/Spring/SpringBoot自动配置原理.md",
                 },
                 {
                     text: "Spring的IOC和Bean的生命周期",

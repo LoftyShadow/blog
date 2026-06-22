@@ -69,7 +69,7 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
             setThreshold(INITIAL_CAPACITY);
 }
 ```
-可以发现这个**ThreadLocalMap的key是ThreadLocal类的实例对象，划重点，面试要考的，value为设置的值。**  
+可以发现这个**ThreadLocalMap 的 key 是 ThreadLocal 类的实例对象，value 为设置的值。**
 ThreadLocalMap 由一个个 Entry 对象构成 Entry 继承自 WeakReference> ，一个 Entry 由 ThreadLocal 对象和 Object 构 成。由此可见， Entry 的key是ThreadLocal对象，并且是一个弱引用。当没指向key的强引用后，该 key就会被垃圾收集器回收。  
 为什么需要数组呢？没有了链表怎么解决Hash冲突呢？  
 在看ThreadLocalMap的set方法  
